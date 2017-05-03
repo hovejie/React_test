@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+         <script src="../build/react.js"></script>
+        <script src="../build/react-dom.js"></script>
+        <script src="../build/browser.min.js"></script>
+    </head>
+    <body>
+    <div id='root'></div>
+    <script type="text/babel">
+        var Tetx = React.createClass({
+            Toclick:function(){
+                this.refs.dome.focus();
+                console.log(this.refs.dome.value);
+            },
+            render:function(){
+                return (
+                    <div>
+                        <input type="text"  ref='dome'/>
+                        <input type="button" name="" value="focus 获取" onClick={this.Toclick} />
+                    </div>
+                    );
+            }
+        });
+
+        ReactDOM.render(
+            <Tetx />,
+            document.getElementById('root')
+            );
+    </script>
+    </body>
+</html>

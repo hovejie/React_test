@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="../build/react.js"></script>
+        <script src="../build/react-dom.js"></script>
+        <script src="../build/browser.min.js"></script>
+    </head>
+    <body>
+    <div id = 'root'></div>
+    <script type="text/babel">
+    var app = ['a','b','c'];
+    function tt(e){
+        return <h1>hello {e}</h1>
+    }
+    ReactDOM.render(
+        <div>
+            kiss
+            {app.map(tt)}
+        </div>,
+        document.getElementById('root')
+    );
+
+    </script>
+<!--     <script>
+    var test = ['aa','vv','dd'];
+    console.log(test.map(function(name){
+        return  name +"=="+name;
+    }));
+    var all = test.forEach(function(e){
+        console.log(e);
+    })
+    </script> -->
+    </body>
+</html>

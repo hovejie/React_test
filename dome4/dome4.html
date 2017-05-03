@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+         <script src="../build/react.js"></script>
+        <script src="../build/react-dom.js"></script>
+        <script src="../build/browser.min.js"></script>
+    </head>
+    <body>
+    <div id='root'></div>
+    <script type="text/babel">
+    //组建变量名称首字母必须大写
+        var Hello = React.createClass({ 
+            render:function(){
+                    return <h1>hello word {this.props.name}</h1>;
+                }
+            });
+        //在组建中不能包含两层标签，在两层标签中加入，react会使用后面的标签
+        //在组建中可以添加属性，然后用this.props对象获取组建的属性
+        var Nun = React.createClass({
+            render:function(){
+                return <h1>
+                        kiss u
+                        <p>some</p>
+                    </h1>,<h2>hahha</h2>;
+            }
+        });
+        ReactDOM.render(
+            <Nun name = 'jie'/>,
+            document.getElementById('root')
+            );
+    </script>
+    </body>
+</html>

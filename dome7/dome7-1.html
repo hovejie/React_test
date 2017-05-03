@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+         <script src="../build/react.js"></script>
+        <script src="../build/react-dom.js"></script>
+        <script src="../build/browser.min.js"></script>
+    </head>
+    <body>
+        <div id='root'></div>
+  <script type="text/babel">
+
+    var Text = React.createClass({
+        Toclick:function(){
+            // this.refs.dome.focus();
+            this.refs.kiss.style.color = 'red';
+             console.log(this.refs.kiss);
+        },
+        render:function(){
+            return (
+                <div>
+                     <a ref = 'kiss' >email me</a>
+                     <input type="button" name="" value="button" onClick ={this.Toclick} />
+                </div>
+               
+                );
+        }
+
+    });
+    ReactDOM.render(
+        <Text />,
+        document.getElementById('root')
+        );
+    </script>
+    </body>
+
+</html>

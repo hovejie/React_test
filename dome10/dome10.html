@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="../build/react.js"></script>
+        <script src="../build/react-dom.js"></script>
+        <script src="../build/browser.min.js"></script>
+        <title>生命周期</title>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+            var Text = React.createClass({
+                getInitialState:function(){
+                    return {
+                        opacity:0.1
+                    }
+                },
+                componentWillMount:function(){
+                    
+                    // setInterval(function(){
+                        console.log("a");
+                    // },1000)
+                },
+                componentwillUpdate:function(){
+                    console.log('c');
+                },
+                conmponentDilUpdate:function(){
+                    console.log('d');
+                }
+                ,
+                componentWillUnmount:function(){
+                    console.log('e');
+                }
+                ,
+                componentDidMount:function(){
+                    var op = this.state.opacity;
+                    var Tish = this;
+                    setInterval(function(){
+                        op +=0.1;
+                        if(op>=1){
+                            op=0.1;
+                        }
+                       Tish.setState({
+                            opacity:op
+                        });
+                    }, 100)
+                   console.log('b');
+                }
+                ,
+                render:function(){
+                    return (<div style={{opacity:this.state.opacity}}>
+                        <p>this.props.name</p>
+                        <p>{this.state.opacity}</p>
+                    </div>);
+                }
+            });
+            ReactDOM.render(
+                <Text name='hello word'/>,
+                document.body
+                );
+        </script>
+    </body>
+</html>

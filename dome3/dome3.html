@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="../build/react.js"></script>
+        <script src="../build/react-dom.js"></script>
+        <script src="../build/browser.min.js"></script>
+    </head>
+    <body>
+    <div id = 'root' key='a'></div>
+    <script type="text/babel">
+            var arr = ['a','b'];
+            var arrs = [<p >hello</p>, <h2>word</h2>, ];
+            ReactDOM.render(
+                <div className='kiss' data-key='a'>{arrs}</div>,
+              document.getElementById('root')
+            );
+    </script>
+    </body>
+</html>
