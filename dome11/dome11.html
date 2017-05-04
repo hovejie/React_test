@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+         <script src="../build/react.js"></script>
+        <script src="../build/react-dom.js"></script>
+        <script src="../build/browser.min.js"></script>
+    </head>
+    <body>
+    <div id='root'></div>
+    <script type="text/babel">
+        var Text = React.createClass({
+            getInitialState:function(){
+                return {
+                    link:false,
+                    name:'jie'
+                }
+            },
+            onclicks:function(event){ 
+                this.setState({link:!this.state.link});
+                this.setState({name:'hello word'});
+            }
+            ,
+            render:function(){
+                var links = this.state.link?'喜欢':'不喜欢';
+                return (<div>
+                    <Name name={this.state.name}/>
+                    <Link link={links} cell={this.onclicks}/>
+                </div>)
+            }
+
+        });
+        var Name = React.createClass({
+            render:function(){
+                return <p>{this.props.name}</p>
+            }
+        });
+        var Link = React.createClass({
+            render:function(){
+                return <h1 onClick={this.props.cell}>{this.props.link}</h1>
+            }
+        });
+
+        ReactDOM.render(
+            <Text />,
+            document.getElementById('root')
+        );
+    </script>
+    </body>
+</html>
