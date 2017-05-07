@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="../build/react.js"></script>
+        <script src="../build/react-dom.js"></script>
+        <script src="../build/browser.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+        var Text = React.createClass({
+            getInitialState:function(){
+                return {
+                    link:true,
+                    content:'this is test',
+                    show:'显示'
+                }
+            },
+            hasClick:function(){
+                this.setState({link:!this.state.link});
+            },
+            render:function(){
+                var show = this.state.link?'显示':'隐藏';
+                var dis = this.state.link?'block':'none';
+                return (<div>
+                    <Open cont = {this.state.content} sty={{display:dis}}/>
+                    <Show show = {show} has={this.hasClick}/>
+                </div>)
+            }
+        });
+        var Open = React.createClass({
+            render:function(){
+                return (<div style={this.props.sty}>
+                        {this.props.cont}
+                    </div>);
+                }
+            });
+        var Show = React.createClass({
+            render:function(){
+                return (
+                        <div>
+                             <h1 >{this.props.show}</h1>
+                             <bottom onClick={this.props.has} >点我{this.props.show}</bottom>
+                        </div>
+                   )
+            }
+        })
+        ReactDOM.render(
+            <Text />,
+            document.getElementById('root')
+        );
+        </script>
+    </body>
+</html>

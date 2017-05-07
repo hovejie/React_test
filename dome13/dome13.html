@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+         <script src="../build/react.js"></script>
+        <script src="../build/react-dom.js"></script>
+        <script src="../build/browser.min.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="text/babel">
+            var Fater = React.createClass({
+                getInitialState:function(){
+                    return {
+                        inputs:'input value',
+                        selects:'A',
+                        radios:'B',
+                        checkboxs:[],
+                        textareas:'textarea value'
+                    };
+                }
+                ,
+                haschange:function(e){
+                    e.preventDefault();
+                    var FormDate = {
+                        inputs:this.refs.inp.value,
+                        selects:this.refs.selects.value,
+                        textareas:this.refs.textareas.value,
+                        radios:this.state.radios,
+                        checkboxs:this.state.checkboxs
+                    }
+                    this.setState({inputs:this.refs.inp.value});
+                    console.log(FormDate);
+                },
+                hasradios:function(e){
+                    this.setState({radios:e.target.value});
+                },
+                hascheckbox:function(e){
+                    var checkeds = this.state.checkboxs;
+                    var value = e.target.value;
+                    var index = checkeds.indexOf(value);
+                    if(index==-1){
+                        checkeds.push(value);
+                    }else{
+                        checkeds.splice(index,1);
+                    }
+                    this.setState({
+                        checkboxs:checkeds
+                    });
+                },
+                render:function(){
+                    return(
+                        <div>
+                            <form onSubmit={this.haschange}>
+                                <input type="text" ref='inp' name="" defaultValue={this.state.inputs} />
+                                <br/>
+                                <p>下拉表单</p>
+                                <select name="" ref='selects'>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                </select>
+                                <p>单选</p>
+                                A<input type="radio" name="but" value="A" onChange={this.hasradios}/>
+                                B<input type="radio" name="but" value="B" onChange={this.hasradios} defaultChecked/>
+                                C<input type="radio" name="but" value="C" onChange={this.hasradios}/>
+                                <p>多选选</p>
+                                A<input type="checkbox" name="bot" value="A" onChange={this.hascheckbox}/>
+                                B<input type="checkbox" name="bot" value="B" onChange={this.hascheckbox}/>
+                                C<input type="checkbox" name="bot" value="C" onChange={this.hascheckbox}/>
+                                <p>文本框</p>
+                                <textarea name="" ref='textareas' defaultValue={this.state.textareas}></textarea>
+                                <br/>
+                                <button type='submit'>提交</button>
+                             </form>
+                        </div>
+                    
+                    );
+                }
+            });
+    ReactDOM.render(
+        <Fater />,
+        document.getElementById('root')
+    );
+        </script>
+    </body>
+</html>
