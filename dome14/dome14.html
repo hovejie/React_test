@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>关于React双向数据绑定</title>
+        <script src="../build/react-with-addons.js"></script>
+        <script src="../build/react-dom.js"></script>
+        <script src="../build/browser.min.js"></script>
+    </head>
+    <body>
+    <div id='root'></div>
+    <script type="text/babel">
+        var Text = React.createClass({
+            mixins:[React.addons.LinkedStateMixin],
+            getInitialState:function(){
+                return {
+                    magess:'this is React',
+                    init:true
+                }
+            },
+            render:function(){
+                return (
+                    <div>
+                        <h1>I sea :{this.state.magess}</h1>
+                        <h2>我：{this.state.init?'喜欢':'不喜欢'}React</h2>
+                        <input type="text" valueLink={this.linkState('magess')}/>
+                        <input type="checkbox" name="" value="" checkedLink={this.linkState('init')}/>
+                        <br/>
+                        <Song magessLink={this.linkState('magess')} initLink = {this.linkState('init')} />
+                    </div>
+                    )
+            }
+
+        });
+        var Song =React.createClass({
+            render:function(){
+                return (
+                    <div>
+                        <p>我是子组件</p>
+                        <h1>子组件 sea :{this.props.magessLink}</h1>
+                        <input type="text" valueLink ={this.props.magessLink}/>
+                        <input type="checkbox" checkedLink={this.props.initLink}/>
+                        <Osong magessLink = {this.props.magessLink} initLink = {this.props.initLink}/>
+                    </div>
+                    )
+            }
+        });
+        var Osong = React.createClass({
+            render:function(){
+                return (<div>
+                        <p>孙子组件</p>
+                        <input type="text" name="" valueLink ={this.props.magessLink}/>
+                        <input type="checkbox" name="" checkedLink = {this.props.initLink}/>
+                    </div>)
+            }
+        })
+        React.render(
+            <Text />,
+            document.getElementById('root')
+        );
+    </script>
+    </body>
+</html>
