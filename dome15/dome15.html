@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="../build/react-with-addons.js"></script>
+        <script src="../build/react-dom.js"></script>
+        <script src="../build/browser.min.js"></script>
+    </head>
+    <body>
+    <div id='root'></div>
+    <script type="text/babel">
+    var Text = React.createClass({
+        getInitialState:function(){
+            return{
+                count:0
+            }
+        },
+        getDefaultProps:function(){
+            console.log('getDefaultProps');
+            return {
+                link:'喜欢'
+            }
+        },
+        //已插入真实dom前调用
+        componentWillMount:function(){
+            console.log('已插入真实dom前调用='+'componentWillMount');
+            var set=this;
+            setInterval(function(){
+                var num = set.state.count;
+                num++;
+                set.setState({count:num});
+            },1000)
+        },
+        //插入真实dom之后调用
+        componentDidMount:function(){
+            console.log('插入真实dom之后调用='+'componentDidMount');
+        },
+        //渲染之前调用
+        componentWillUpdata:function(){
+            console.log('渲染之前调用='+'componentWillUpdata');
+        },
+        //渲染之后调用
+        componentDidUpdata:function(){
+            console.log('渲染之后调用='+'componentDidUpdata');
+        },
+        //移除真实DOM时调用
+        componentWillUnmount:function(){
+            confirm('是否移除组件');
+            console.log('移除真实DOM时调用='+'componentWillUnmount');
+        },
+        //是否重新渲染时调用
+        shouldComponentUpdata:function(nextProps, nextState){
+            console.log('是否重新渲染时调用='+'shouldComponentUpdata');
+            return nextProps.link !== this.props.link;
+        },
+        //组件收到新的参数时调用????不知道怎么调用
+        componentWillReceiveProps:function(nextProps, nextState){
+            console.log('组件收到新的参数时调用='+'componentWillReceiveProps');
+            return nextProps.link !== this.props.link;
+        },
+        remove:function(){
+            React.unmountComponentAtNode(document.getElementById('root'));
+        },
+        changeProps:function(){
+            // this.props.link ? false:true;
+            if(this.props.link){
+                this.props.link=false;
+            }else{
+                this.props.link=true;
+            }
+        },
+        render:function(){
+            console.log('渲染');
+            return (<div>
+                <h1>计时:{this.state.count}</h1>
+                <button onClick={this.remove}>移除这个组件</button>
+                <Oring link = {this.props.link} clicks = {this.changeProps}/>
+            </div>)
+        }
+    })
+    var Oring = React.createClass({
+
+        render:function(){
+            return (
+                <div>   
+                    <h1>改变props的值时的操作:{this.props.link?'喜欢':'不喜欢'}</h1>
+                    <button onClick={this.props.clicks}>改变状态</button>
+                </div>
+                );
+        }
+    })
+    React.render(
+        <Text />,
+        document.getElementById('root')
+        );
+    </script>
+    </body>
+</html>
