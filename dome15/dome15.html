@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
+        <title>component的生命周期</title>
         <script src="../build/react-with-addons.js"></script>
         <script src="../build/react-dom.js"></script>
         <script src="../build/browser.min.js"></script>
@@ -9,6 +10,7 @@
     <body>
     <div id='root'></div>
     <script type="text/babel">
+    var Timer;
     var Text = React.createClass({
         getInitialState:function(){
             return{
@@ -25,7 +27,7 @@
         componentWillMount:function(){
             console.log('已插入真实dom前调用='+'componentWillMount');
             var set=this;
-            setInterval(function(){
+            Timer = setInterval(function(){
                 var num = set.state.count;
                 num++;
                 set.setState({count:num});
@@ -46,6 +48,7 @@
         //移除真实DOM时调用
         componentWillUnmount:function(){
             confirm('是否移除组件');
+            clearInterval(Timer);
             console.log('移除真实DOM时调用='+'componentWillUnmount');
         },
         //是否重新渲染时调用
