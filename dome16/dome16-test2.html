@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>mixins</title>
+         <script src="../build/react-with-addons.js"></script>
+        <script src="../build/react-dom.js"></script>
+        <script src="../build/browser.min.js"></script>
+    </head>
+    <body>
+    <div id='root'></div>
+    <script type="text/babel">
+    //使用mixin保存上一次改变的值，然后打印出来，mixin作为一个公共的方法
+    var SetIntervalMixin = {
+        componentWillMount: function() {
+            this.intervals = [];
+        },
+       componentWillUpdate:function(nextProp,nextState){
+            this.intervals.push(nextState);//把更新的值保存在数组中
+            // for(var arr in arguments){
+            //     console.log(arguments[arr]);
+            // }
+            // console.log(this.intervals.length);
+        },
+        changes:function(){
+            var index = this.intervals.length-1;
+            return index == -1?{}:this.intervals[index];//返回上一次组件和子组件的值
+        }
+      };
+
+    var TickTock = React.createClass({
+        mixins: [SetIntervalMixin], // Use the mixin
+        getInitialState:function(){
+            return {count:0}
+        },
+        onplay:function(){
+            this.setState({
+               count:this.state.count+1
+            });
+              console.log('上一次的计数是：'+this.changes().count)
+        },
+        render: function() {
+          
+            return (
+                <div>
+                    <p>
+                     React has been running for {this.state.count} seconds.
+                    </p>
+                    <button onClick={this.onplay}>更新一下</button>
+                    <Song count={this.state.count}/>
+                </div>
+                
+            );
+        }
+    });
+    var Song = React.createClass({
+        mixins:[SetIntervalMixin],
+        getInitialState:function(){
+            return ({
+                count:0
+            })
+        },
+        componentWillReceiveProps:function(nextProp){
+            this.setState({count:this.props.count*2})
+             console.log('上一次子组件的计数是：'+this.changes().count )
+        },
+        render:function(){
+           
+            return(<div>
+                <p>子组件下的更新数据{this.state.count}</p>
+            </div>)
+        }
+    })
+
+    React.render(
+        <TickTock />,
+        document.getElementById('root')
+    );
+        </script>
+    </body>
+</html>
